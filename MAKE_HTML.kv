@@ -1,0 +1,115 @@
+#the below screen gives the template
+<Template_Screen>
+    StackLayout:
+        orientation: 'lr-tb' # lr- stands for left to right... After exhausting the space in left to right, it goes to top to bottom.....
+        Image:
+            source:"E:Transparent Background.jpg"
+            size_hint:[.7, .33]
+            size: self.texture_size
+        StackLayout:
+            size_hint:[.3, .33]
+            orientation: 'tb-lr'
+            Button:
+                text:"Click here to use the template"
+                size_hint:[.9, .1]
+                on_press:root.manager.current='TEMP_1'
+            Label:
+                text: "This is a template which works well for many purposes like portfolios, partnership firms  small businesses and so on..."
+                size_hint:[.9,.5]
+                height: self.texture_size[1]
+                text_size: self.width, None
+        Image:
+            source:"E:/ECOMMERCE IDEAS.jpg"
+            size_hint:[.7, .33]
+            size: self.texture_size
+        StackLayout:
+            size_hint:[.3, .33]
+            orientation: 'tb-lr'
+            Button:
+                text:"Click here to use the template"
+                size_hint:[.9, .1]
+            Label:
+                text: "This is a template which works mainly for ecommerce.. "
+                size_hint:[.9,.5]
+                height: self.texture_size[1]
+                text_size: self.width, None
+        Image: #Third one..
+            source:"E:/HTML.png"
+            size_hint:[.7, .33]
+            size: self.texture_size
+        StackLayout:
+            size_hint:[.3, .33]
+            orientation: 'tb-lr'
+            Button:
+                text:"Click here to use the Builder"
+                size_hint:[.9, .1]
+            Label:
+                text: "It offers more customisation "
+                size_hint:[.9,.5]
+                keep_ratio: True
+                allow_stretch: True
+                height: self.texture_size[1]
+                text_size: self.width, None
+    ActionBar:
+        background_color: (0,0,0,1)
+        background_image:""
+        ActionView:
+            ActionPrevious:
+                app_icon: 'E:/BITNAMI WORDPRESS/img/64x64.png'
+                title: 'You are selecting btw template and builder'
+                with_previous: False
+                ActionButton:
+                    text: "About"
+                    on_press:root.manager.current="About"
+
+
+
+
+
+
+
+
+
+
+<About_Screen>
+    ActionBar:
+        background_color: (0,0,0,1)
+        background_image:""
+        ActionView:
+            ActionPrevious:
+                app_icon: 'E:/BITNAMI WORDPRESS/img/64x64.png'
+                title: 'ABOUT'
+                with_previous: False
+                ActionButton:
+                    text: "Go to Main Screen.."
+                    on_press:root.manager.current="Select Template"
+
+    Label:
+        text: "This app is not for commercial use. \n Why? The first reason is that this app is not under always active development. It is just a project for class 12 \n Wordpress and joomla can offer better Builders.\n\n You can however modify and use the codes according to our wish. It is just my idea, you can use the idea and even license it. This code does not have any licensing\n This app is made by Karthik V using KIVY FRAMEWORK"
+
+
+
+
+
+
+
+
+
+
+
+# The below screen is for using the template One
+<Template_1>
+    ActionBar:
+        background_color: (0,0,0,1)
+        background_image:""
+        ActionView:
+            ActionPrevious:
+                app_icon: 'E:/BITNAMI WORDPRESS/img/64x64.png'
+                title: 'Using: Temp-1'
+                with_previous: False
+                ActionButton:
+                    text: "Go Back for selecting the template"
+                    on_press:root.manager.current="Select Template"
+                ActionButton:
+                    text: "About"
+                    on_press:root.manager.current="About"
