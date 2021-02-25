@@ -1,0 +1,184 @@
+<abtapp>
+	Label:
+		text: "This app can help you to code in html to some extent"
+		text_size: self.size
+<abttempscreen>
+	Label:
+		text: "This screen is to selct btw template and buidler"
+		text_size: self.size
+<abttemp1>
+	Label:
+		text: "This is a template 1. These are good for general things"
+		text_size: self.size
+<abttemp2>
+	Label:
+		text: "This is the template 2. These are good for consturuction"
+		text_size: self.size
+<abtbuilder>
+	Label:
+		text: "Builder"
+<Template_Screen>
+	ScrollView:
+		do_scroll_y:True
+		effect_cls: 'ScrollEffect'
+		BoxLayout:
+			orientation:"vertical"
+			BoxLayout:
+				height:self.minimum_height
+				width:self.minimum_width
+				orientation:"horizontal"
+				ScrollView:
+					do_scroll_y:True
+					effect_cls: 'ScrollEffect'
+					Image:
+						source: "Images/Templates Pictures/Temp-1.png"
+						keep_ratio: True
+						size_hint_y: None
+						size_hint_x: None
+						height:self.parent.width/self.image_ratio
+						width: root.width/2
+				BoxLayout:
+					Label:
+						text: "This is a layout which is suitable for portfolios, small businesses and much more"
+						size: dp(80), dp(40)
+						text_size: self.size
+						halign: "center"
+						valign: "center"
+					Button:
+						text: "Use Template 1"
+						size: dp(80), dp(40)
+						size_hint:(.5, .25)
+						text_size: self.size
+						on_release: root.manager.current = "T1"
+						halign: "center"
+						valign: "center"
+			BoxLayout:
+				height:self.minimum_height
+				width:self.minimum_width
+				orientation:"horizontal"
+				BoxLayout:
+					Label:
+						text: "This is a layout which specifically suits the consturuction companies or firms"
+						text_size: self.size
+						halign: "center"
+						valign: "center"
+					Button:
+						text: "Use Template 2"
+						size: dp(80), dp(40)
+						text_size: self.size
+						size_hint:(.5, .25)
+						on_release: root.manager.current = "T2"
+						halign: "center"
+						valign: "center"
+				ScrollView:
+					do_scroll_y:True
+					effect_cls: 'ScrollEffect'
+					Image:
+						source: "Images/Templates Pictures/Construction Template.jpg"
+						keep_ratio: True
+						size_hint_y: None
+						size_hint_x: None
+						height:self.parent.width/self.image_ratio
+						width: self.parent.width
+			BoxLayout:
+				height:self.minimum_height
+				width:self.minimum_width
+				orientation:"horizontal"
+				ScrollView:
+					do_scroll_y:True
+					effect_cls: 'ScrollEffect'
+					Image:
+						source: "Images/Templates Pictures/BUILDER.png"
+						keep_ratio: True
+						size_hint_y: None
+						size_hint_x: None
+						height:self.parent.width/self.image_ratio
+						width: self.parent.width
+				BoxLayout:
+					Label:
+						text: "If you wanna try to make yourself, test this."
+						size: dp(80), dp(40)
+						text_size: self.size
+						halign: "center"
+						valign: "center"
+					Button:
+						text: "USE ME"
+						size_hint:(.5, .25)
+						text_size: self.size
+						on_release: root.manager.current = "Builder"
+						halign: "center"
+						valign: "center"
+			ActionBar:
+				ActionView:
+					ActionPrevious:
+						app_icon: ''
+						title: 'Select Template'
+						text_size: self.size
+						with_previous: False
+						ActionButton:
+							text: "About"
+							on_release: root.About_APP_Popup.open()
+						ActionButton:
+							text: "?"
+							on_release: root.About_Screen_Popup.open()
+						ActionButton:
+							text:"X"
+							on_release: quit()
+
+<Template_1>
+	Label:
+		text:"Template 1"
+	ActionBar:
+		ActionView:
+			ActionPrevious:
+				app_icon: ''
+				title: 'T1 General'
+				text_size: self.size
+				with_previous: False
+				ActionButton:
+					text: "?"
+					on_release: root.About_Screen_Popup.open()
+				ActionButton:
+					text: "Go back"
+					on_release: root.manager.current = "Select Template"
+				ActionButton:
+					text:"X"
+					on_release:quit()
+<Template_2>
+	Label:
+		text: "T2-Const"
+	ActionBar:
+		ActionView:
+			ActionPrevious:
+				app_icon: ''
+				title: 'T2-Construction'
+				text_size: self.size
+				with_previous: False
+				ActionButton:
+					text: "?"
+					on_release: root.About_Screen_Popup.open()
+				ActionButton:
+					text: "Go back"
+					on_release: root.manager.current = "Select Template"
+				ActionButton:
+					text:"X"
+					on_release:quit()
+<Builder_Screen>
+	Label:
+		text: "Builder Screen"
+	ActionBar:
+		ActionView:
+			ActionPrevious:
+				app_icon: ''
+				title: 'Builder'
+				text_size: self.size
+				with_previous: False
+				ActionButton:
+					text: "?"
+					on_release: root.About_Screen_Popup.open()
+				ActionButton:
+					text: "Go back"
+					on_release: root.manager.current = "Select Template"
+				ActionButton:
+					text:"X"
+					on_release:quit()
