@@ -1,12 +1,11 @@
 #Importing THE REQUIRED MODULES
-import kivy
-from kivy.uix.label import Label
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
-lf=Builder.load_file("MAKE_HTML.kv")                    # Loading the Kivy file
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
+lf=Builder.load_file("MAKE_HTML.kv")  # Loading the Kivy file
+
 #from kivy.uix.floatlayout import FloatLayout
 
 
@@ -14,17 +13,17 @@ from kivy.uix.boxlayout import BoxLayout
 
 
 # Following classes are for the popups which might prove helpful
-class abtapp(BoxLayout):# It is for knowing about the app
+class abtapp(BoxLayout):  # It is for knowing about the app
     pass
-class abttempscreen(BoxLayout):# It is for telling user about the screen which is for selecting templates
+class abttempscreen(BoxLayout):  # It is for telling user about the screen which is for selecting templates
     pass
-class abttemp2 (BoxLayout):# It is for telling user abt template 2 which is the construction template
+class abttemp2 (BoxLayout):  # It is for telling user abt template 2 which is the construction template
     pass
-class abttemp1(BoxLayout):# it is for telling user about the template one.
+class abttemp1(BoxLayout):  # it is for telling user about the template one.
     pass
-class abtbuilder(BoxLayout):# It is for telling user about the builder
+class abtbuilder(BoxLayout):  # It is for telling user about the builder
     pass
-#The following class is for Screen_1 Which z for selecting the template...
+  #The following class is for Screen_1 Which z for selecting the template...
 class Template_Screen (Screen):
     show=abtapp()
     About_APP_Popup=Popup(title="About",content=show)
@@ -44,9 +43,11 @@ class Template_2 (Screen):
     
 #The Following class is for the Main App
 class main(App):
+    
     """
     Still i need to write it fully.... Thanks for patience..... At present, it has only screen managers
     """
+    
     title="My App"
     def build(self):
         sm = ScreenManager()
