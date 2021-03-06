@@ -1,46 +1,29 @@
+try:
+    Fh=open("sample.html","r")# Checks if the file exists or not
+    Fh.close()
+except:
+    fh=open("sample.html","w")# Creates when file does not exist
+    fh.close()
+else:
+    Fh=open("samplerec.html","w")#Creates new one 
+    fh=open("sample.html","r+")
+    Fh.write(fh.read())
+    Fh.close()
+    fh.close()#Closes the file
+    fh=open("sample.html","w")#For overwriting data
+    fh.close()# Closing file for further use
 #Importing THE REQUIRED MODULES
+import os
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.factory import Factory
 lf=Builder.load_file("MAKE_HTML.kv")  # Loading the Kivy file
-
-#from kivy.uix.floatlayout import FloatLayout
-
-
-
-
-
-# Following classes are for the popups which might prove helpful
-class abtapp(BoxLayout):  # It is for knowing about the app
+class Builder_Screen(Screen):
     pass
-class abttempscreen(BoxLayout):  # It is for telling user about the screen which is for selecting templates
-    pass
-class abttemp2 (BoxLayout):  # It is for telling user abt template 2 which is the construction template
-    pass
-class abttemp1(BoxLayout):  # it is for telling user about the template one.
-    pass
-class abtbuilder(BoxLayout):  # It is for telling user about the builder
-    pass
-  #The following class is for Screen_1 Which z for selecting the template...
-class Template_Screen (Screen):
-    show=abtapp()
-    About_APP_Popup=Popup(title="About",content=show)
-    show=abttempscreen()
-    About_Screen_Popup=Popup(title="Help Screen",content=show)
-class Builder_Screen (Screen):
-    show=abtbuilder()
-    About_Screen_Popup=Popup(title="About",content=show)
-class Template_1 (Screen):
-    show=abttemp1()
-    About_Screen_Popup=Popup(title="About",content=show)
-class Template_2 (Screen):
-    show=abttemp2()
-    About_Screen_Popup=Popup(title="About",content=show)
-
-
-    
 #The Following class is for the Main App
 class main(App):
     
@@ -48,14 +31,29 @@ class main(App):
     Still i need to write it fully.... Thanks for patience..... At present, it has only screen managers
     """
     
-    title="My App"
+    title="Html Code assist"
     def build(self):
+        """
+Build for screen manager."""
         sm = ScreenManager()
-        sm.add_widget(Template_Screen(name='Select Template'))
         sm.add_widget(Builder_Screen(name='Builder'))
-        sm.add_widget(Template_1(name='T1'))
-        sm.add_widget(Template_2(name='T2'))
         return sm
+    abspathtofile="Nothing till now"
+    wd=os.getcwd()
+    os=__import__("os")
+    def copytolocal(self,source):
+        import os
+        import shutil
+        print(wd)
+        ext=source.split(".")[-1]
+        fn=source.split(r"\\")[-1]
+        shutil.copyfile(source,"User Content/abcsdasd.{}".format(ext,fn))
+    def appendtofile(self,text):
+        fh=open("sample.html","a")
+        fh.write(text)
+    def openop(self):
+        import webbrowser
+        webbrowser.open("file://{}/sample.html".format(os.getcwd()))
 
 # calling the main class for running the app
 main().run()

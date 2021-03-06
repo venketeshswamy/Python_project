@@ -1,184 +1,1212 @@
-<abtapp>
-	Label:
-		text: "This app can help you to code in html to some extent"
-		text_size: self.size
-<abttempscreen>
-	Label:
-		text: "This screen is to selct btw template and buidler"
-		text_size: self.size
-<abttemp1>
-	Label:
-		text: "This is a template 1. These are good for general things"
-		text_size: self.size
-<abttemp2>
-	Label:
-		text: "This is the template 2. These are good for consturuction"
-		text_size: self.size
-<abtbuilder>
-	Label:
-		text: "Builder"
+#:import Factory kivy.factory.Factory
+
+<abtbuilder@Popup>
+	title: "About this builder..."
+	size_hint_x:0.6
+	size_hint_y:0.6
+	BoxLayout	
+		orientation:"vertical"
+		Label:
+			text: "Builder. It can assist you in learning HTML syles and help in making basic blocks"
+			halign:"center"
+			valign:"center"
+			text_size:self.size
+		
+		
+		
+# It is for asking user if he needs to quit the app or not
+<suretogoout@Popup>
+	size_hint_x:0.9
+	size_hint_y:0.9
+	title:"Quit?"
+	BoxLayout:
+		orientation:"vertical"
+		Label:
+			text: "Sure to Quit?"
+			text_size: self.size
+			halign:"center"
+			valign:"center"
+			size_hint_y: 1
+			size_hint_x:1
+			height: self.texture_size[1]
+		Button:
+			text: "YES"
+			background_color:1,0,0,1
+			text_size: self.size
+			on_release:
+				app.appendtofile("/n </html>")
+				quit()
+			halign:"center"
+			valign:"center"
+			size_hint_y: 1
+			size_hint_x:1
+			height: self.texture_size[1]
+		Button:
+			text: "No"
+			background_color:0,1,0,1
+			text_size: self.size
+			on_release: root.dismiss()
+			halign:"center"
+			valign:"center"
+			size_hint_y: 1
+			size_hint_x:1
+			height: self.texture_size[1]
+			
+			
+			
+			
+							
+							
+<checkdir@Popup>
+	title:"Current DIR"
+	size_hint_x:.4
+	size_hint_y:0.4
+	ScrollView:
+		do_scroll_y:True
+		effect_cls:"ScrollEffect"
+		GridLayout:
+			cols:2
+			Label:
+				text:"directory is {}".format(app.os.path.relpath(app.pathtofile[2:-2:1]))
+				height: root.height/3
+				text_size:self.size
+				halign:"center"
+				valign:"center"
+			ScrollView:
+				do_scroll_y:True
+				effect_cls:"ScrollEffect"
+				Image:
+					keep_ratio: True
+					size_hint_y: None
+					size_hint_x: 1
+					height:self.parent.width/self.image_ratio
+					width: self.parent.width
+					source: str(app.pathtofile[2:-2])
+<getfiledir@Popup>
+	title:"Select the File"
+	auto_dismiss:False
+	size_hint_x:.7
+	size_hint_y:.7
+	BoxLayout:
+		orientation:"vertical"
+		FileChooserIconView:
+			id: findthefiledir
+			dirselect:False
+			path: app.wd
+			rootpath:app.wd
+		Label:
+			text:"You have selected {}".format(findthefiledir.selection)
+			text_size:self.size
+			size_hint_y:0.2
+		Button:
+			size_hint_y:.1
+			text_size:self.size
+			text:"I have selected it"
+			on_press:app.pathtofile=str(findthefiledir.selection)
+			on_release: root.dismiss()
+<videohero@Popup>
+	title:"PLAIN IMAGE HERO"
+	size_hint_x:.9
+	size_hint_y:0.9
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y: True
+			effect_cls: "ScrollEffect"
+			GridLayout:
+				cols:2
+				size_hint_x: 1
+				size_hint_y:None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Video embed Link"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: videotag
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Your text Heading"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: h1tagplainimg
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Your text in paragraph"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: paratag
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"BG color is milk white"
+					text_size:self.size
+					size_hint_y:None
+				Label:
+					text:"NOTE: Follows is for color of text"
+					text_size:self.size
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslider
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslider.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslider
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslider.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslider
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslider.value)
+				Button:
+					text:"o"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+				Button:
+					text:"p"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+		Button:
+			text:"I am done"
+			text_size:self.size
+			size_hint_y:0.1
+			on_release:
+				root.dismiss()
+				app.appendtofile('<div style="background-color:#f7f7f7"><h1 style="color:rgb({},{},{});text-align:center;font-size: 5rem;">{}</h1><p style="text-align:center;color:#030303;font-size: 1.5rem;">{}</p><div style="position: relative;padding-bottom: 56.25%;"><iframe style= "position: absolute;top: 0;left: 0;width: 100%;height:100%;" width="560" height="315" src="{}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>'.format(redslider.value,greenslider.value,blueslider.value,h1tagplainimg.text,paratag.text,videotag.text))
+<Plainimagehero@Popup>
+	title:"PLAIN IMAGE HERO"
+	size_hint_x:.9
+	size_hint_y:0.9
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y: True
+			effect_cls: "ScrollEffect"
+			GridLayout:
+				cols:2
+				size_hint_x: 1
+				size_hint_y:None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Image source"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				GridLayout:
+					cols:2
+					Button:
+						text:"Click to select"
+						halign:"center"
+						valign:"center"
+						height: root.height/5
+						text_size:self.size
+						size_hint_y: None
+						on_release: Factory.getfiledir().open()
+					Button:
+						on_press: Factory.checkdir().open()
+						size_hint_y: None
+						text:"Check"
+						halign:"center"
+						valign:"center"
+						text_size:self.size
+				Label:
+					text:"Your text Heading"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: h1tagplainimg
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslider
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslider.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslider
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslider.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslider
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslider.value)
+				Label:
+					text:"height of Hero as % of screen"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: heightofplainhero
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 5
+						max: 300
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(heightofplainhero.value)+"%"
+				Button:
+					text:"o"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+				Button:
+					text:"p"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+		Button:
+			text:"I Am Done."
+			text_size:self.size
+			size_hint_y:.14
+			on_release: root.dismiss(),app.appendtofile("<h1 style=\"min-height: {}vh;background-size:cover;color:rgba({},{},{},1);justify-content: center;display: flex;font-size: 5rem;align-items: center;background-image: url('{}');\">{}</h1>".format(heightofplainhero.value,redslider.value,greenslider.value,blueslider.value,app.os.path.relpath(app.pathtofile[2:-2:1]).replace("\\","/"),h1tagplainimg.text))
+<imgonlft@Popup>
+	title:"Img on Left"
+	size_hint_x:.9
+	size_hint_y:0.9
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y: True
+			effect_cls: "ScrollEffect"
+			GridLayout:
+				cols:2
+				size_hint_x: 1
+				size_hint_y:None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Image source"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				GridLayout:
+					cols:2
+					Button:
+						text:"Click to select"
+						halign:"center"
+						valign:"center"
+						height: root.height/5
+						text_size:self.size
+						size_hint_y: None
+						on_release: Factory.getfiledir().open()
+					Button:
+						on_press: Factory.checkdir().open()
+						size_hint_y: None
+						text:"Check"
+						halign:"center"
+						valign:"center"
+						text_size:self.size
+				Label:
+					text:"Your text Heading"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: htag
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Your text in para"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: paratag
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Starting color"
+					height:root.height/5
+				Label:
+					text:"value of gradient"
+					height:root.height/5
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslider
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslider.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslider
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslider.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslider
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslider.value)
+				Label:
+					text:"ending color"
+					height:root.height/5
+				Label:
+					text:"value of gradient"
+					height:root.height/5
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslidere
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslidere.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslidere
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslidere.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslidere
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslidere.value)
+				Button:
+					text:"starting gradient color"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+				Button:
+					text:"ending gradient color"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslidere.value/255,greenslidere.value/255,blueslidere.value/255,1]
+		Button:
+			text:"I Am Done."
+			text_size:self.size
+			size_hint_y:.14
+			on_release:
+				root.dismiss()
+				app.appendtofile('<html>\n<style>\n*,\n:after,\n:before {\n\tbox-sizing: border-box;\n}\n\nsection {\n\tdisplay: block;\n}\n\nh3 {\n\tmargin-top: 0;\n\tmargin-bottom: .5rem;\n}\n\np {\n\tmargin-top: 0;\n\tmargin-bottom: 1rem;\n}\n\nh3 {\n\tmargin-bottom: .5rem;\n\tfont-weight: 500;\n\tline-height: 1.2;\n}\n\nh3 {\n\tfont-size: 1.75rem;\n}\n\n.container {\n\twidth: 100%;\n\tpadding-right: 15px;\n\tpadding-left: 15px;\n\tmargin-right: auto;\n\tmargin-left: auto;\n}\n\n@media (min-width:576px) {\n\t.container {\n\t\tmax-width: 540px;\n\t}\n}\n\n@media (min-width:768px) {\n\t.container {\n\t\tmax-width: 720px;\n\t}\n}\n\n@media (min-width:992px) {\n\t.container {\n\t\tmax-width: 960px;\n\t}\n}\n\n@media (min-width:1200px) {\n\t.container {\n\t\tmax-width: 1140px;\n\t}\n}\n\n.row {\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-ms-flex-wrap: wrap;\n\tflex-wrap: wrap;\n\tmargin-right: -15px;\n\tmargin-left: -15px;\n}\n\n.col,\n.col-lg-5,\n.col-md-12 {\n\tposition: relative;\n\twidth: 100%;\n\tpadding-right: 15px;\n\tpadding-left: 15px;\n}\n\n.col {\n\t-ms-flex-preferred-size: 0;\n\tflex-basis: 0;\n\t-ms-flex-positive: 1;\n\tflex-grow: 1;\n\tmax-width: 100%;\n}\n\n@media (min-width:768px) {\n\t.col-md-12 {\n\t\t-ms-flex: 0 0 100%;\n\t\tflex: 0 0 100%;\n\t\tmax-width: 100%;\n\t}\n}\n\n@media (min-width:992px) {\n\t.col-lg-5 {\n\t\t-ms-flex: 0 0 41.66667%;\n\t\tflex: 0 0 41.66667%;\n\t\tmax-width: 41.66667%;\n\t}\n\t.offset-lg-1 {\n\t\tmargin-left: 8.33333%;\n\t}\n}\n\n.align-items-center {\n\t-ms-flex-align: center!important;\n\talign-items: center!important;\n}\n\n@media print {\n\t*,\n\t:after,\n\t:before {\n\t\ttext-shadow: none!important;\n\t\tbox-shadow: none!important;\n\t}\n\th3,\n\tp {\n\t\torphans: 3;\n\t\twidows: 3;\n\t}\n\th3 {\n\t\tpage-break-after: avoid;\n\t}\n\t.container {\n\t\tmin-width: 992px!important;\n\t}\n}\n\n.gradient {\n\tbackground: linear-gradient(120deg, rgb('+str(int(redslider.value))+","+str(int(greenslider.value))+","+str(int(blueslider.value))+'), rgb('+str(int(redslidere.value))+","+str(int(greenslidere.value))+","+str(int(blueslidere.value))+'));\n\tcolor: #fff;\n}\n\n.portfolio-block {\n\tpadding-bottom: 60px;\n\tpadding-top: 60px;\n}\n\n.portfolio-block.website h3 {\n\tfont-weight: 700;\n}\n\n.portfolio-block.website p {\n\topacity: .9;\n}\n\n.portfolio-laptop-mockup {\n\tmargin: auto;\n\tmargin-top: 30px;\n\tmax-width: 280px;\n}\n\n.portfolio-block.website .text {\n\ttext-align: center;\n}\n\n.portfolio-laptop-mockup .screen {\n\tborder: 1px solid #9c9c9c;\n\tborder-bottom: none;\n\twidth: 250px;\n\theight: 160px;\n\tpadding: 10px;\n\tborder-radius: 5px;\n\tbackground-color: #fff;\n\tposition: relative;\n\tleft: 15px;\n}\n\n.portfolio-laptop-mockup .screen .screen-content {\n\tborder: 1px solid #c5c5c5;\n\tbackground-position: 50%;\n\tbackground-size: cover;\n\theight: 100%;\n}\n\n.portfolio-laptop-mockup .keyboard {\n\twidth: 280px;\n\theight: 10px;\n\tborder: 1px solid #9c9c9c;\n\tborder-bottom-left-radius: 7px;\n\tborder-bottom-right-radius: 7px;\n\tbackground-color: #fff;\n}\n\n@media (min-width:768px) {\n\t.portfolio-block {\n\t\tpadding-bottom: 100px;\n\t\tpadding-top: 100px;\n\t}\n\t.portfolio-laptop-mockup {\n\t\tmax-width: 350px;\n\t}\n\t.portfolio-laptop-mockup .screen {\n\t\twidth: 320px;\n\t\theight: 210px;\n\t}\n\t.portfolio-laptop-mockup .keyboard {\n\t\twidth: 350px;\n\t}\n}\n\n@media (min-width:992px) {\n\t.portfolio-laptop-mockup {\n\t\tmargin-top: 0;\n\t}\n\t.portfolio-block.website .text {\n\t\ttext-align: right;\n\t}\n}\n</style>\n<section class="portfolio-block website gradient">\n        <div class="container">\n            <div class="row align-items-center">\n                <div class="col">\n                    <div class="portfolio-laptop-mockup">\n                        <div class="screen">\n                            <div class="screen-content" style="background-image: url(&quot;'+app.os.path.relpath(app.pathtofile[2:-2:1]).replace("\\","/")+'&quot;);"></div>\n                        </div>\n                        <div class="keyboard"></div>\n                    </div>\n                </div>\n                <div class="col-md-12 col-lg-5 offset-lg-1 text">\n                    <h3>'+htag.text+'</h3>\n                    <p>'+paratag.text+'</p>\n                </div>\n            </div>\n        </div>\n    </section>')
+<imgonright@Popup>
+	title:"Img on right"
+	size_hint_x:.9
+	size_hint_y:0.9
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y: True
+			effect_cls: "ScrollEffect"
+			GridLayout:
+				cols:2
+				size_hint_x: 1
+				size_hint_y:None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Image source"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				GridLayout:
+					cols:2
+					Button:
+						text:"Click to select"
+						halign:"center"
+						valign:"center"
+						height: root.height/5
+						text_size:self.size
+						size_hint_y: None
+						on_release: Factory.getfiledir().open()
+					Button:
+						on_press: Factory.checkdir().open()
+						size_hint_y: None
+						text:"Check"
+						halign:"center"
+						valign:"center"
+						text_size:self.size
+				Label:
+					text:"Your text Heading"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: h1tagr
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Your text in para"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: paratagr
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Starting color"
+					height:root.height/5
+				Label:
+					text:"value of gradient"
+					height:root.height/5
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslider
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslider.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslider
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslider.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslider
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslider.value)
+				Label:
+					text:"ending color"
+					height:root.height/5
+				Label:
+					text:"value of gradient"
+					height:root.height/5
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslidere
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslidere.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslidere
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslidere.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslidere
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslidere.value)
+				Button:
+					text:"starting gradient color"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+				Button:
+					text:"ending gradient color"
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslidere.value/255,greenslidere.value/255,blueslidere.value/255,1]
+		Button:
+			text:"I Am Done."
+			text_size:self.size
+			size_hint_y:.14
+			on_release:
+				root.dismiss()
+				app.appendtofile('<style>\n*,\n:after,\n:before {\n  box-sizing: border-box;\n}\n\nsection {\n  display: block;\n}\n\nbody {\n  margin: 0;\n  font-family: Lato, sans-serif;\n  font-size: 1rem;\n  font-weight: 400;\n  line-height: 1.5;\n  color: #212529;\n  text-align: left;\n  background-color: #fff;\n}\n\nh3 {\n  margin-top: 0;\n  margin-bottom: .5rem;\n}\n\np {\n  margin-top: 0;\n  margin-bottom: 1rem;\n}\n\nh3 {\n  margin-bottom: .5rem;\n  font-weight: 500;\n  line-height: 1.2;\n}\n\nh3 {\n  font-size: 1.75rem;\n}\n\n.container {\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n  margin-right: auto;\n  margin-left: auto;\n}\n\n@media (min-width:576px) {\n  .container {\n    max-width: 540px;\n  }\n}\n\n@media (min-width:768px) {\n  .container {\n    max-width: 720px;\n  }\n}\n\n@media (min-width:992px) {\n  .container {\n    max-width: 960px;\n  }\n}\n\n@media (min-width:1200px) {\n  .container {\n    max-width: 1140px;\n  }\n}\n\n.row {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n  flex-wrap: wrap;\n  margin-right: -15px;\n  margin-left: -15px;\n}\n\n.col-lg-5,\n.col-md-12 {\n  position: relative;\n  width: 100%;\n  padding-right: 15px;\n  padding-left: 15px;\n}\n\n@media (min-width:768px) {\n  .col-md-12 {\n    -ms-flex: 0 0 100%;\n    flex: 0 0 100%;\n    max-width: 100%;\n  }\n}\n\n@media (min-width:992px) {\n  .col-lg-5 {\n    -ms-flex: 0 0 41.66667%;\n    flex: 0 0 41.66667%;\n    max-width: 41.66667%;\n  }\n  .offset-lg-1 {\n    margin-left: 8.33333%;\n  }\n}\n\n.align-items-center {\n  -ms-flex-align: center!important;\n  align-items: center!important;\n}\n\n@media print {\n  *,\n  :after,\n  :before {\n    text-shadow: none!important;\n    box-shadow: none!important;\n  }\n  h3,\n  p {\n    orphans: 3;\n    widows: 3;\n  }\n  h3 {\n    page-break-after: avoid;\n  }\n  .container,\n  body {\n    min-width: 992px!important;\n  }\n}\n\n.gradientr {\n  background: linear-gradient(120deg, rgb('+str(int(redslider.value))+','+str(int(greenslider.value))+','+str(int(greenslider.value))+'),rgb('+str(int(redslidere.value))+','+str(int(greenslidere.value))+','+str(int(blueslidere.value))+'));\n  color: #fff;\n}\n\n.portfolio-block {\n  padding-bottom: 60px;\n  padding-top: 60px;\n}\n\n.portfolio-block.website h3 {\n  font-weight: 700;\n}\n\n.portfolio-block.website p {\n  opacity: .9;\n}\n\n.portfolio-laptop-mockup {\n  margin: auto;\n  margin-top: 30px;\n  max-width: 280px;\n}\n\n.portfolio-block.website .text {\n  text-align: center;\n}\n\n.portfolio-laptop-mockup .screen {\n  border: 1px solid #9c9c9c;\n  border-bottom: none;\n  width: 250px;\n  height: 160px;\n  padding: 10px;\n  border-radius: 5px;\n  background-color: #fff;\n  position: relative;\n  left: 15px;\n}\n\n.portfolio-laptop-mockup .screen .screen-content {\n  border: 1px solid #c5c5c5;\n  background-position: 50%;\n  background-size: cover;\n  height: 100%;\n}\n\n.portfolio-laptop-mockup .keyboard {\n  width: 280px;\n  height: 10px;\n  border: 1px solid #9c9c9c;\n  border-bottom-left-radius: 7px;\n  border-bottom-right-radius: 7px;\n  background-color: #fff;\n}\n\n@media (min-width:768px) {\n  .portfolio-block {\n    padding-bottom: 100px;\n    padding-top: 100px;\n  }\n  .portfolio-laptop-mockup {\n    max-width: 350px;\n  }\n  .portfolio-laptop-mockup .screen {\n    width: 320px;\n    height: 210px;\n  }\n  .portfolio-laptop-mockup .keyboard {\n    width: 350px;\n  }\n}\n\n@media (min-width:992px) {\n  .portfolio-laptop-mockup {\n    margin-top: 0;\n  }\n  .portfolio-block.website .text {\n    text-align: right;\n  }\n}\n\n\n</style>\n<section class="portfolio-block website gradientr">\n        <div class="container">\n            <div class="row align-items-center">\n                <div class="col-md-12 col-lg-5 offset-lg-1 text">\n                    <h3>'+h1tagr.text+'</h3>\n                    <p>'+paratagr.text+'</p>\n                </div>\n                <div class="col-md-12 col-lg-5">\n                    <div class="portfolio-laptop-mockup">\n                        <div class="screen">\n                            <div class="screen-content" style="background-image:url(&quot;'+app.os.path.relpath(app.pathtofile[2:-2:1]).replace("\\","/")+'&quot;);"></div>\n                        </div>\n                        <div class="keyboard"></div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </section>\n\t')
+<testimonals@Popup>
+	title:"Testimonal"
+	size_hint_x:.9
+	size_hint_y:.9
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y: True
+			effect_cls: "ScrollEffect"
+			GridLayout:
+				cols:2
+				size_hint_x: 1
+				size_hint_y:None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Your testimonal Heading"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: testhead
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"The testimonal Para"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: testpara
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Person name 1"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: person1
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Person name 2"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: person2
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Person name 3"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: person3
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Person 1's speech"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: p1speech
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Person 2's speech"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: p2speech
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"Person 3's speech"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: p3speech
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+		Button:
+			text:"I am done"
+			text_size:self.size
+			size_hint_y:0.1
+			on_press:
+				root.dismiss()
+				app.appendtofile('<head><style>:root {\n\t--blue: #007bff;\n\t--indigo: #6610f2;\n\t--purple: #6f42c1;\n\t--pink: #e83e8c;\n\t--red: #dc3545;\n\t--orange: #fd7e14;\n\t--yellow: #ffc107;\n\t--green: #28a745;\n\t--teal: #20c997;\n\t--cyan: #17a2b8;\n\t--white: #fff;\n\t--gray: #6c757d;\n\t--gray-dark: #343a40;\n\t--primary: #007bff;\n\t--secondary: #6c757d;\n\t--success: #28a745;\n\t--info: #3b99e0;\n\t--warning: #ffc107;\n\t--danger: #dc3545;\n\t--light: #f8f9fa;\n\t--dark: #343a40;\n\t--breakpoint-xs: 0;\n\t--breakpoint-sm: 576px;\n\t--breakpoint-md: 768px;\n\t--breakpoint-lg: 992px;\n\t--breakpoint-xl: 1200px;\n\t--font-family-sans-serif: "Montserrat", sans-serif;\n\t--font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;\n}\n\n*,\n:after,\n:before {\n\tbox-sizing: border-box;\n}\n\nhtml {\n\tfont-family: sans-serif;\n\tline-height: 1.15;\n\t-webkit-text-size-adjust: 100%;\n\t-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\n}\n\nmain,\nsection {\n\tdisplay: block;\n}\n\nbody {\n\tmargin: 0;\n\tfont-family: Montserrat, sans-serif;\n\tfont-size: 1rem;\n\tfont-weight: 400;\n\tline-height: 1.5;\n\tcolor: #212529;\n\ttext-align: left;\n\tbackground-color: #fff;\n}\n\nh2,\nh3 {\n\tmargin-top: 0;\n\tmargin-bottom: .5rem;\n}\n\np {\n\tmargin-top: 0;\n\tmargin-bottom: 1rem;\n}\n\nh2,\nh3 {\n\tmargin-bottom: .5rem;\n\tfont-weight: 500;\n\tline-height: 1.2;\n}\n\nh2 {\n\tfont-size: 2rem;\n}\n\nh3 {\n\tfont-size: 1.75rem;\n}\n\n.container {\n\twidth: 100%;\n\tpadding-right: 15px;\n\tpadding-left: 15px;\n\tmargin-right: auto;\n\tmargin-left: auto;\n}\n\n@media (min-width:576px) {\n\t.container {\n\t\tmax-width: 540px;\n\t}\n}\n\n@media (min-width:768px) {\n\t.container {\n\t\tmax-width: 720px;\n\t}\n}\n\n@media (min-width:992px) {\n\t.container {\n\t\tmax-width: 960px;\n\t}\n}\n\n@media (min-width:1200px) {\n\t.container {\n\t\tmax-width: 1140px;\n\t}\n}\n\n.row {\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-ms-flex-wrap: wrap;\n\tflex-wrap: wrap;\n\tmargin-right: -15px;\n\tmargin-left: -15px;\n}\n\n.col-lg-4 {\n\tposition: relative;\n\twidth: 100%;\n\tpadding-right: 15px;\n\tpadding-left: 15px;\n}\n\n@media (min-width:992px) {\n\t.col-lg-4 {\n\t\t-ms-flex: 0 0 33.33333%;\n\t\tflex: 0 0 33.33333%;\n\t\tmax-width: 33.33333%;\n\t}\n}\n\n.card {\n\tposition: relative;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-ms-flex-direction: column;\n\tflex-direction: column;\n\tmin-width: 0;\n\tword-wrap: break-word;\n\tbackground-color: #fff;\n\tbackground-clip: border-box;\n\tborder: 1px solid rgba(0, 0, 0, .125);\n\tborder-radius: .25rem;\n}\n\n.card-body {\n\t-ms-flex: 1 1 auto;\n\tflex: 1 1 auto;\n\tmin-height: 1px;\n\tpadding: 1.25rem;\n}\n\n.border-0 {\n\tborder: 0!important;\n}\n\n.rounded-0 {\n\tborder-radius: 0!important;\n}\n\n.text-info {\n\tcolor: #3b99e0!important;\n}\n\n@media print {\n\t*,\n\t:after,\n\t:before {\n\t\ttext-shadow: none!important;\n\t\tbox-shadow: none!important;\n\t}\n\th2,\n\th3,\n\tp {\n\t\torphans: 3;\n\t\twidows: 3;\n\t}\n\th2,\n\th3 {\n\t\tpage-break-after: avoid;\n\t}\n\t.container,\n\tbody {\n\t\tmin-width: 992px!important;\n\t}\n}\n\nbody,\nhtml {\n\theight: 100%;\n\twidth: 100%;\n}\n\n.clean-block {\n\tpadding-bottom: 50px;\n}\n\n.clean-block.dark {\n\tbackground-color: #f6f6f6;\n}\n\n.clean-block .block-heading {\n\tpadding-top: 50px;\n\tmargin-bottom: 40px;\n\ttext-align: center;\n}\n\n.clean-block .block-heading p {\n\ttext-align: center;\n\tmax-width: 420px;\n\tmargin: auto;\n\topacity: .7;\n}\n\n.clean-block.dark .block-heading p {\n\topacity: .8;\n}\n\n.clean-block .block-heading h2 {\n\tmargin-bottom: 1.2rem;\n}\n\n.clean-testimonial-item {\n\tborder: 1px solid #eaeaea;\n\tbox-shadow: 0 2px 10px rgba(0, 0, 0, .075);\n\tmargin-bottom: 30px;\n\tbackground-color: #fff;\n\tcolor: #212529;\n\ttext-align: left;\n}\n\n.clean-testimonial-item .card-body {\n\tpadding: 40px;\n}\n\n.clean-testimonial-item h3 {\n\tfont-size: 1.1em;\n\tfont-weight: 600;\n}\n\n.clean-testimonial-item p {\n\tfont-size: .9em;\n}\n\n@media (min-width:576px) {\n\t.clean-block {\n\t\tpadding-bottom: 100px;\n\t}\n\t.clean-block .block-heading {\n\t\tpadding-top: 80px;\n\t}\n}\n\n</style><body>\n<section class="clean-block clean-testimonials dark">\n            <div class="container">\n                <div class="block-heading">\n                    <h2 class="text-info">'+testhead.text+'</h2>\n                    <p>'+testpara.text+'</p>\n                </div>\n                <div class="row">\n                    <div class="col-lg-4">\n                        <div class="card clean-testimonial-item border-0 rounded-0">\n                            <div class="card-body">\n                                <p class="card-text">'+p1speech.text+'</p>\n                                <h3>'+person1.text+'</h3>\n                            </div>\n                        </div>\n                    </div>\n                    <div class="col-lg-4">\n                        <div class="card clean-testimonial-item border-0 rounded-0">\n                            <div class="card-body">\n                                <p class="card-text">'+p2speech.text+'</p>\n                                <h3>'+person2.text+'</h3>\n                            </div>\n                        </div>\n                    </div>\n                    <div class="col-lg-4">\n                        <div class="card clean-testimonial-item border-0 rounded-0">\n                            <div class="card-body">\n                                <p class="card-text">'+p3speech.text+'</p>\n                                <h3>'+person3.text+'</h3>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </section>\n\n\n\n</body>')
+<darkfooter@Popup>
+	title:"Dark Footer"
+	size_hint_x:.9
+	size_hint_y:.9
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y: True
+			effect_cls: "ScrollEffect"
+			GridLayout:
+				cols:2
+				size_hint_x: 1
+				size_hint_y:None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Your Content for footer"
+					text_size: self.size
+					halign:"center"
+					valign:"center"
+					height: root.height/5
+					size_hint_y: None
+				TextInput: 
+					id: darkfootcontent
+					hint_text:'Enter text To enter into the block'
+					multiline:False
+					size_hint: 0.95, None
+				Label:
+					text:"RED"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: redslider
+						value_track:True
+						value_track_color:[1, 0, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(redslider.value)
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: greenslider
+						value_track:True
+						value_track_color:[0, 1, 0, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(greenslider.value)
+				Label:
+					text:"Green"
+					height:self.texture_size[1]
+				Label:
+					text:"Blue"
+					height:self.texture_size[1]
+				BoxLayout:
+					orientation:"vertical"
+					size_hint_x:1
+					size_hint_y:None
+					Slider:
+						id: blueslider
+						value_track:True
+						value_track_color:[0, 0, 1, 1]
+						min: 0
+						max: 255
+						step:1
+						sensitivity: 'all'
+						size_hint_x:.9
+					Label:
+						text:str(blueslider.value)
+				Button:
+					text:"I recommend white as text color"
+					text_size:self.size
+					background_normal:""
+					height: self.texture_size[1]
+					background_color: [redslider.value/255,greenslider.value/255,blueslider.value/255,1]
+		Button:
+			text:"I am done"
+			text_size:self.size
+			size_hint_y:.15
+			height: self.texture_size[1]
+			on_release:
+				root.dismiss()
+				app.appendtofile('\n<footer style="background-color:#000;padding:20px;text-align:center;"><h5 style="color: rgb({},{},{});">{}</h5></footer>'.format(redslider.value,greenslider.value,blueslider.value,darkfootcontent.text))
+# Below are the definitions for the screens
 <Template_Screen>
 	ScrollView:
 		do_scroll_y:True
+		do_scroll_x:False
 		effect_cls: 'ScrollEffect'
 		BoxLayout:
-			orientation:"vertical"
-			BoxLayout:
-				height:self.minimum_height
-				width:self.minimum_width
-				orientation:"horizontal"
-				ScrollView:
-					do_scroll_y:True
-					effect_cls: 'ScrollEffect'
-					Image:
-						source: "Images/Templates Pictures/Temp-1.png"
-						keep_ratio: True
-						size_hint_y: None
-						size_hint_x: None
-						height:self.parent.width/self.image_ratio
-						width: root.width/2
-				BoxLayout:
-					Label:
-						text: "This is a layout which is suitable for portfolios, small businesses and much more"
-						size: dp(80), dp(40)
-						text_size: self.size
-						halign: "center"
-						valign: "center"
-					Button:
-						text: "Use Template 1"
-						size: dp(80), dp(40)
-						size_hint:(.5, .25)
-						text_size: self.size
-						on_release: root.manager.current = "T1"
-						halign: "center"
-						valign: "center"
-			BoxLayout:
-				height:self.minimum_height
-				width:self.minimum_width
-				orientation:"horizontal"
-				BoxLayout:
-					Label:
-						text: "This is a layout which specifically suits the consturuction companies or firms"
-						text_size: self.size
-						halign: "center"
-						valign: "center"
-					Button:
-						text: "Use Template 2"
-						size: dp(80), dp(40)
-						text_size: self.size
-						size_hint:(.5, .25)
-						on_release: root.manager.current = "T2"
-						halign: "center"
-						valign: "center"
-				ScrollView:
-					do_scroll_y:True
-					effect_cls: 'ScrollEffect'
-					Image:
-						source: "Images/Templates Pictures/Construction Template.jpg"
-						keep_ratio: True
-						size_hint_y: None
-						size_hint_x: None
-						height:self.parent.width/self.image_ratio
-						width: self.parent.width
-			BoxLayout:
-				height:self.minimum_height
-				width:self.minimum_width
-				orientation:"horizontal"
-				ScrollView:
-					do_scroll_y:True
-					effect_cls: 'ScrollEffect'
-					Image:
-						source: "Images/Templates Pictures/BUILDER.png"
-						keep_ratio: True
-						size_hint_y: None
-						size_hint_x: None
-						height:self.parent.width/self.image_ratio
-						width: self.parent.width
-				BoxLayout:
-					Label:
-						text: "If you wanna try to make yourself, test this."
-						size: dp(80), dp(40)
-						text_size: self.size
-						halign: "center"
-						valign: "center"
-					Button:
-						text: "USE ME"
-						size_hint:(.5, .25)
-						text_size: self.size
-						on_release: root.manager.current = "Builder"
-						halign: "center"
-						valign: "center"
-			ActionBar:
-				ActionView:
-					ActionPrevious:
-						app_icon: ''
-						title: 'Select Template'
-						text_size: self.size
-						with_previous: False
-						ActionButton:
-							text: "About"
-							on_release: root.About_APP_Popup.open()
-						ActionButton:
-							text: "?"
-							on_release: root.About_Screen_Popup.open()
-						ActionButton:
-							text:"X"
-							on_release: quit()
-
-<Template_1>
-	Label:
-		text:"Template 1"
-	ActionBar:
-		ActionView:
-			ActionPrevious:
-				app_icon: ''
-				title: 'T1 General'
+			height:self.minimum_height
+			width:self.minimum_width
+			orientation:"horizontal"
+			Label:
+				text: "If you wanna try to make yourself, test this."
+				size: dp(80), dp(40)
 				text_size: self.size
-				with_previous: False
-				ActionButton:
-					text: "?"
-					on_release: root.About_Screen_Popup.open()
-				ActionButton:
-					text: "Go back"
-					on_release: root.manager.current = "Select Template"
-				ActionButton:
-					text:"X"
-					on_release:quit()
-<Template_2>
-	Label:
-		text: "T2-Const"
-	ActionBar:
-		ActionView:
-			ActionPrevious:
-				app_icon: ''
-				title: 'T2-Construction'
+				halign: "center"
+				valign: "center"
+			Button:
+				text: "USE ME"
 				text_size: self.size
-				with_previous: False
-				ActionButton:
-					text: "?"
-					on_release: root.About_Screen_Popup.open()
-				ActionButton:
-					text: "Go back"
-					on_release: root.manager.current = "Select Template"
-				ActionButton:
-					text:"X"
-					on_release:quit()
+				size_hint_y: None
+				text_size: self.width, None
+				height: self.texture_size[1]
+				on_release: root.manager.current = "Builder"
+				halign: "center"
+				valign: "center"
+			Button:
+				text:"CLick here to transfer the required images to cwd"
+				text_size:self.size
+				height:self.texture_size[1]
+				size_hint_y:.15
+				on_release:app.os.startfile("Copy to CWD.py")
 <Builder_Screen>
-	Label:
-		text: "Builder Screen"
-	ActionBar:
-		ActionView:
-			ActionPrevious:
-				app_icon: ''
-				title: 'Builder'
-				text_size: self.size
-				with_previous: False
-				ActionButton:
-					text: "?"
-					on_release: root.About_Screen_Popup.open()
-				ActionButton:
-					text: "Go back"
-					on_release: root.manager.current = "Select Template"
-				ActionButton:
-					text:"X"
-					on_release:quit()
+	BoxLayout:
+		orientation:"vertical"
+		ScrollView:
+			do_scroll_y:True
+			effect_cls: 'ScrollEffect'
+			GridLayout:
+				cols: 2
+				size_hint_y: None
+				height: self.minimum_height
+				padding: 5
+				spacing: 5
+				Label:
+					text:"Hero"
+					halign:"right"
+					valign:"center"
+					height:self.texture_size[1]
+					text_size: self.size
+				Label
+					text:"Header"
+					halign:"left"
+					valign:"center"
+					text_size: self.size
+					size_hint_y:None
+				ScrollView:
+					effect_cls:"ScrollEffect"
+					Image:
+						source: 'Images/Builder Section/Heros/Plain and Simple.jpg'
+						size_hint_y: None
+						height: self.parent.width/self.image_ratio
+						keep_ratio: True
+				Button:
+					text:"Hero Type-1 : Plain Hero with BG img"
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/2
+					text_size: self.size
+					on_release:
+						Factory.Plainimagehero().open()
+						app.pathtofile="None"
+				Button:
+					text:"Hero Type-2 : Video down Hero"
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/2
+					text_size: self.size
+					on_release:Factory.videohero().open()
+				ScrollView:
+					effect_cls:"ScrollEffect"
+					Image:
+						source: 'Images/Builder Section/Heros/Video down Hero.jpg'
+						size_hint_y: None
+						height: self.parent.width/self.image_ratio
+						keep_ratio: True
+				Label:
+					text:"Features"
+					halign:"right"
+					valign:"center"
+					height:self.texture_size[1]
+					text_size: self.size
+				Label
+					text:"Blocks"
+					halign:"left"
+					valign:"center"
+					text_size: self.size
+					size_hint_y:None
+				ScrollView:
+					effect_cls:"ScrollEffect"
+					Image:
+						source: 'Images/Builder Section/Features/Feature image reversed.jpg'
+						size_hint_y: None
+						height: self.parent.width/self.image_ratio
+						keep_ratio: True
+				Button:
+					text:"Features with image on left"
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/2
+					text_size: self.size
+					on_release:Factory.imgonlft().open()
+				Button:
+					text:"Features with image on right"
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/2
+					text_size: self.size
+					on_release:Factory.imgonright().open()
+				ScrollView:
+					effect_cls:"ScrollEffect"
+					Image:
+						source: 'Images/Builder Section/Features/Feature with image on each side.jpg'
+						size_hint_y: None
+						size_hint_x:1
+						height: self.parent.width/self.image_ratio
+						keep_ratio: True
+				Label:
+					text:"Testimonal"
+					halign:"right"
+					valign:"center"
+					height:self.texture_size[1]
+					text_size: self.size
+				Label
+					text:"Blocks"
+					halign:"left"
+					valign:"center"
+					text_size: self.size
+					size_hint_y:None
+				ScrollView:
+					effect_cls:"ScrollEffect"
+					Image:
+						source: 'Images/Builder Section/Testimonals/Full width basic text.jpg'
+						size_hint_y: None
+						size_hint_x:1
+						height: self.parent.width/self.image_ratio
+						keep_ratio: True
+				Button:
+					text:"Testimonal basic txt"
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/2
+					text_size: self.size
+					on_release:
+						Factory.testimonals().open()
+				Label:
+					text:"Footer"
+					halign:"right"
+					valign:"center"
+					height:self.texture_size[1]
+					text_size: self.size
+				Label
+					text:"Block"
+					halign:"left"
+					valign:"center"
+					text_size: self.size
+					size_hint_y:None
+				ScrollView:
+					effect_cls:"ScrollEffect"
+					Image:
+						source: 'Images/Builder Section/Testimonals/Full width basic text.jpg'
+						size_hint_y: None
+						size_hint_x:1
+						height: self.parent.width/self.image_ratio
+						keep_ratio: True
+				Button:
+					text:"Dark Footer"
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/2
+					text_size: self.size
+					on_release:
+						Factory.darkfooter().open()
+				Label:
+					text:"SEE THE O/p"
+					halign:"right"
+					valign:"center"
+					height:root.height/5
+					text_size: self.size
+				Button:
+					text:"Lets go"
+					text_size:self.size
+					halign:"center"
+					valign:"center"
+					size_hint_y: None
+					height: root.height/5
+					on_release:
+						app.openop()
+		ActionBar:
+			ActionView:
+				ActionPrevious:
+					app_icon: ''
+					title: 'Builder'
+					text_size: self.size
+					with_previous: False
+					ActionButton:
+						text: "?"
+						on_release: Factory.abtbuilder().open()
+					ActionButton:
+						text:"CWD"
+						size_hint_y:.15
+						on_release:app.os.startfile("Copy to CWD.py")
+					ActionButton:
+						text:"X"
+						on_release:Factory.suretogoout().open()
