@@ -176,7 +176,7 @@ class WorkerSignals(QObject):
 
 class FileImportWorker(QThread):
     """Worker thread for importing files asynchronously."""
-    file_imported = pyqtSignal(str, str) # original_path, imported_path
+    file_imported = pyqtSignal(str, str, int)  # original_path, imported_path, num_pages
     
     def __init__(self, file_paths: List[str], import_dir: str):
         super().__init__()
@@ -204,7 +204,21 @@ class FileImportWorker(QThread):
                     counter += 1
                 
                 shutil.copy(file_path, imported_path)
-                self.file_imported.emit(file_path, imported_path)
+
+                # Determine page count while still in the worker thread
+                num_pages = 0
+                try:
+                    ext = os.path.splitext(imported_path)[1].lower()
+                    if ext == '.pdf':
+                        doc = fitz.open(imported_path)
+                        num_pages = len(doc)
+                        doc.close()
+                    elif ext in SUPPORTED_IMAGE_FORMATS:
+                        num_pages = 1
+                except Exception as e:
+                    print(f"Error counting pages in {imported_path}: {e}")
+
+                self.file_imported.emit(file_path, imported_path, num_pages)
             except Exception as e:
                 print(f"Error importing {file_path}: {e}")
         self.finished.emit()
@@ -1196,17 +1210,9 @@ class MainWindow(QMainWindow):
         self.import_worker.finished.connect(self._on_import_finished)
         self.import_worker.start()
 
-    def _handle_imported_file(self, original_path: str, imported_path: str):
+    def _handle_imported_file(self, original_path: str, imported_path: str, num_pages: int):
         """Adds a newly imported file to the data model and UI list."""
         try:
-            num_pages = 0
-            ext = os.path.splitext(imported_path)[1].lower()
-            if ext == '.pdf':
-                doc = fitz.open(imported_path)
-                num_pages = len(doc)
-                doc.close()
-            elif ext in SUPPORTED_IMAGE_FORMATS:
-                num_pages = 1 # Images are single-page documents
             
             self.imported_files[imported_path] = {
                 'original_path': original_path,
@@ -1864,8 +1870,21 @@ class MainWindow(QMainWindow):
                 for file_name in file_list:
                     if file_name not in ['session.json', 'results.csv']:
                         zf.extract(file_name, path=import_dir)
+                        extracted_path = os.path.join(import_dir, file_name)
+                        num_pages = 0
+                        try:
+                            ext = os.path.splitext(extracted_path)[1].lower()
+                            if ext == '.pdf':
+                                doc = fitz.open(extracted_path)
+                                num_pages = len(doc)
+                                doc.close()
+                            elif ext in SUPPORTED_IMAGE_FORMATS:
+                                num_pages = 1
+                        except Exception as e:
+                            print(f"Error counting pages in {extracted_path}: {e}")
+
                         # This adds the file to our data models
-                        self._handle_imported_file(os.path.join(zf.filename, file_name), os.path.join(import_dir, file_name))
+                        self._handle_imported_file(os.path.join(zf.filename, file_name), extracted_path, num_pages)
                 
                 # 2. Load session metadata
                 if 'session.json' in file_list:
